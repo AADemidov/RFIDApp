@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
+using Excel = Microsoft.Office.Interop.Excel;
+
+
+
+
 
 namespace RFIDApp
 {
@@ -112,6 +117,48 @@ namespace RFIDApp
         private void timer1_Tick(object sender, EventArgs e)
         {
             richTextBox1.AppendText(ReadFromCOM());
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
+            if (port.IsOpen) // если порт открыт
+            {
+
+                Excel.Application ex = new Microsoft.Office.Interop.Excel.Application(); //создаем COM-объект Excel
+
+                ex.Visible = true; //делаем объект видимым
+
+                ex.SheetsInNewWorkbook = 1;//количество листов в книге
+
+                ex.Workbooks.Add(Type.Missing); //добавляем книгу
+
+                Excel.Workbook workbook = ex.Workbooks[1]; //Получаем первый лист документа (счет начинается с 1)
+
+                Excel.Worksheet sheet = workbook.Worksheets.get_Item(1); //ссылка на первый лист
+
+                sheet.Name = "Отчет" + DateTime.Now.Hour.ToString(); //Название листа (вкладки снизу)
+
+                // Заполняем столб А
+                for (int i = 0; i < 10; i++)
+                {
+                    sheet.Cells[i, 1].Value = i;
+                }
+
+                // Заполняем столб B
+                for (int j = 1; j <= 10; j++)
+                {
+                    sheet.Cells[j, 2].Value = j;
+                }
+
+
+            }
+
         }
     }
 }
