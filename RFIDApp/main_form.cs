@@ -88,45 +88,24 @@ namespace RFIDApp
                     for (int i = 0; i < Convert.ToInt32(textBox1.Text); i++)
                         temp += data[i].ToString() + " ";
                 }
+
                 catch (Exception ex)
                 {
                     return ("ERROR: невозможно открыть порт:" + ex.ToString());
                 }
+
             }
             else
             {
-                temp = "Открой порт сапака!";
+                temp = "Открой порт!";
             }
+
+          
             return DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":"+ DateTime.Now.Second.ToString() + ":" + DateTime.Now.Millisecond.ToString() + ">>" + temp + "\r\n";
         }
-        
 
-        private void button3_Click(object sender, EventArgs e)
+        public void Read_Excel()
         {
-            richTextBox1.AppendText(ReadFromCOM());
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            if (timer1.Enabled == true)
-                timer1.Stop();
-            else
-                timer1.Start();
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            richTextBox1.AppendText(ReadFromCOM());
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-
             if (port.IsOpen) // если порт открыт
             {
 
@@ -155,9 +134,46 @@ namespace RFIDApp
                 {
                     sheet.Cells[j, 2].Value = j;
                 }
-
-
             }
+        }
+        public void SaveMyFile()
+        {
+            SaveFileDialog saveFile1 = new SaveFileDialog();
+            saveFile1.DefaultExt = "*.txt";
+            saveFile1.Filter = "RTF Files|*.txt";
+
+            if (saveFile1.ShowDialog() == DialogResult.OK && saveFile1.FileName.Length > 0)
+            {
+                richTextBox1.SaveFile(saveFile1.FileName, RichTextBoxStreamType.PlainText);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            richTextBox1.AppendText(ReadFromCOM()); 
+            
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (timer1.Enabled == true)
+                timer1.Stop();
+            else
+                timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            richTextBox1.AppendText(ReadFromCOM());
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {  }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            
+
 
         }
     }
