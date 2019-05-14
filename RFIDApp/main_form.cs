@@ -103,7 +103,10 @@ namespace RFIDApp
           
             return DateTime.Now.Hour.ToString() + ":" + DateTime.Now.Minute.ToString() + ":"+ DateTime.Now.Second.ToString() + ":" + DateTime.Now.Millisecond.ToString() + ">>" + temp + "\r\n";
         }
+  private void label1_Click(object sender, EventArgs e)
+        {
 
+        }
         public void Read_Excel()
         {
             if (port.IsOpen) // если порт открыт
@@ -138,7 +141,10 @@ namespace RFIDApp
                 richTextBox1.SaveFile(saveFile1.FileName, RichTextBoxStreamType.PlainText);
             }
         }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
+        }
         private void button3_Click(object sender, EventArgs e)
         {
             richTextBox1.AppendText(ReadFromCOM()); 
@@ -164,14 +170,26 @@ namespace RFIDApp
         private void button5_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFile1 = new SaveFileDialog();
-            saveFile1.DefaultExt = "*.rtf"; //*.rtf | *.txt 
-            saveFile1.Filter = "RTF Files|*.rtf"; // RTF Files|*.rtf |TXT Files|*.txt
-            if (saveFile1.ShowDialog() == System.Windows.Forms.DialogResult.OK &&
+            saveFile1.DefaultExt = "*.rtf"; 
+            saveFile1.Filter = "RTF Files|*.rtf";
+            if (saveFile1.ShowDialog() == DialogResult.OK &&
                saveFile1.FileName.Length > 0)
             {
                 richTextBox1.SaveFile(saveFile1.FileName);
             }
 
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFile1 = new SaveFileDialog();
+            saveFile1.DefaultExt = "*.txt"; 
+            saveFile1.Filter = "TXT Files|*.txt";
+            if (saveFile1.ShowDialog() == DialogResult.OK &&
+               saveFile1.FileName.Length > 0)
+            {
+                richTextBox1.SaveFile(saveFile1.FileName);
+            }
         }
     }
 }
